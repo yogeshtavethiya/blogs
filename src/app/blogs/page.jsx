@@ -1,17 +1,19 @@
 import React from "react";
 import Image from "next/image";
 import './styles.css';
-import Blogs from './Blogs';
+// import Blogs from './Blogs';
 import LoaderSpinner from "@/app/Components/Loader";
 
-const Blogs = ({ blogs }) => {
+const BlogsComponent = async() => {
+    let blogsData = await fetch('https://dummyapi.online/api/blogposts')
+    let blogs =  await blogsData.json()
     return (
         <div className="home">
             <div className="blogs">
                 {blogs?.length === 0 ? (
                     <LoaderSpinner />
                 ) : (
-                    blogs?.map((item, idx) => (
+                    blogs && blogs.map((item, idx) => (
                         <div className="blog-container" key={idx}>
                             <Image
                                 className="blog-image"
@@ -41,20 +43,20 @@ const Blogs = ({ blogs }) => {
     );
 };
 
-export default Blogs;
+export default BlogsComponent;
 
-export async function getServerSideProps() {
-    let blogs = [];
-    try {
-        const res = await fetch('https://dummyapi.online/api/blogposts');
-        if (res.ok) {
-            blogs = await res.json();
-        }
-    } catch (error) {
-        console.error("Error fetching blogs:", error);
-    }
+// export async function getServerSideProps() {
+//     let blogs = [];
+//     try {
+//         const res = await fetch('https://dummyapi.online/api/blogposts');
+//         if (res.ok) {
+//             blogs = await res.json();
+//         }
+//     } catch (error) {
+//         console.error("Error fetching blogs:", error);
+//     }
     
-    return {
-        props: { blogs },
-    };
-}
+//     return {
+//         props: { blogs },
+//     };
+// }

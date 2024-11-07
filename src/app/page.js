@@ -1,5 +1,4 @@
-import HomeComponent from '@/app/pages/home/page'; 
-
+import HomeComponent from '@/app/home/page'; 
 
 export default function Home() {
   return (
